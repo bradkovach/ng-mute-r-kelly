@@ -79,7 +79,7 @@ export class SpotifyService {
 		const params = {
 			client_id: environment.spotifyClientId,
 			redirect_uri: encodeURIComponent(
-				[window.location.href, 'authorize'].join('')
+				[environment.appLink, 'authorize'].join('')
 			),
 			scope: encodeURIComponent(
 				[
