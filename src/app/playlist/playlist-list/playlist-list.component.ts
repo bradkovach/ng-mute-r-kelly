@@ -82,7 +82,7 @@ export class PlaylistListComponent implements OnInit {
 				this.results.total
 			} R. Kelly tracks from ${
 				this.results.playlistsProcessed
-			} Spotify playlists! Remove R. Kelly from your library with a few clicks! ${
+			} Spotify playlists! Remove R. Kelly from your library with a few clicks! #MuteRKelly ${
 				environment.appLink
 			}`;
 		} else {

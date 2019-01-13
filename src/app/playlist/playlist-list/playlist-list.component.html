@@ -3,7 +3,7 @@
 </div>
 <div *ngIf="playlists">
 	<div class="row align-items-center my-5" *ngIf="!results">
-		<div class="col col-3">
+		<div class="col-lg-3 col-sm-12">
 			<button
 				(click)="autoRemove()"
 				class="btn btn-lg btn-primary btn-block"
@@ -17,15 +17,15 @@
 				>
 			</button>
 		</div>
-		<div class="col">
+		<div class="col-lg-9 col-sm-12">
 			<span class="status">Status: {{ status }}</span>
 		</div>
 	</div>
 	<div class="row align-items-center my-5" *ngIf="results">
-		<div class="col-3">
+		<div class="col-lg-3 col-sm-12">
 			<a [href]="getTweetLink()" class="btn btn-primary btn-lg btn-block" target="_blank">Tweet #MuteRKelly</a>
 		</div>
-		<div class="col">
+		<div class="col-lg-9 col-sm-12">
 			{{getTweet()}}
 		</div>
 	</div>
