@@ -1,0 +1,75 @@
+<div *ngIf="!playlist">playlist is loading</div>
+<div class="playlist" *ngIf="playlist">
+	<h3><span class="eyebrow">playlist</span> {{ playlist.name }}</h3>
+	<p>
+		Created by
+		<a href="{{ playlist.owner.external_urls.spotify }}">{{
+			playlist.owner.display_name
+		}}</a>
+		&bull; {{ playlist.tracks.total | number }} songs<span *ngIf="tracks"
+			>, {{ getPlaylistDuration(tracks) }}</span
+		>
+	</p>
+
+	<div class="row align-items-center my-5" *ngIf="canAutoRemove()">
+		<div class="col-3">
+			<button
+				class="btn btn-primary btn-lg btn-block"
+				(click)="removeRKelly()"
+			>
+				Auto Remove
+			</button>
+		</div>
+		<div class="col">
+			<span>Status: {{ status }}</span>
+		</div>
+	</div>
+	<p *ngIf="!canAutoRemove()">
+		<em
+			>You are not able to auto-remove tracks from this playlist, because
+			you don't own it.</em
+		>
+	</p>
+
+	<table class="table" *ngIf="tracks">
+		<thead>
+			<tr>
+				<th>Title</th>
+				<th>Artist</th>
+				<th>Album</th>
+				<th>Added</th>
+				<th>Duration</th>
+			</tr>
+		</thead>
+		<tbody *ngIf="tracks.length === 0">
+			<tr>
+				<td colspan="5"><em>This playlist is empty.</em></td>
+			</tr>
+		</tbody>
+		<tbody *ngIf="tracks.length > 0">
+			<tr *ngFor="let track of tracks">
+				<td>{{ track.track.name }}</td>
+				<td>
+					<span
+						*ngFor="
+							let artist of track.track.artists;
+							let isLast = last
+						"
+					>
+						<a href="{{ artist.external_urls.spotify }}">{{
+							artist.name
+						}}</a
+						>{{ isLast ? '' : ', ' }}
+					</span>
+				</td>
+				<td>
+					<a href="{{ track.track.album.external_urls.spotify }}">{{
+						track.track.album.name
+					}}</a>
+				</td>
+				<td>{{ timeAgoInWords(track.added_at) }}</td>
+				<td>{{ prettyDuration(track.track.duration_ms) }}</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

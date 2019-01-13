@@ -1,0 +1,92 @@
+<div *ngIf="!playlists">
+	<p><em>Your playlists are loading...</em></p>
+</div>
+<div *ngIf="playlists">
+	<div class="row align-items-center my-5" *ngIf="!results">
+		<div class="col col-3">
+			<button
+				(click)="autoRemove()"
+				class="btn btn-lg btn-primary btn-block"
+				[disabled]="removing"
+			>
+				<span *ngIf="!removing">Auto Remove</span>
+				<span *ngIf="removing"
+					><div class="spinner-border text-light" role="status">
+						<span class="sr-only">Processing...</span>
+					</div></span
+				>
+			</button>
+		</div>
+		<div class="col">
+			<span class="status">Status: {{ status }}</span>
+		</div>
+	</div>
+	<div class="row align-items-center my-5" *ngIf="results">
+		<div class="col-3">
+			<a [href]="getTweetLink()" class="btn btn-primary btn-lg btn-block" target="_blank">Tweet #MuteRKelly</a>
+		</div>
+		<div class="col">
+			{{getTweet()}}
+		</div>
+	</div>
+	<div class="row">
+		<div class="col">
+			<h2>Playlists</h2>
+
+			<nav class="">
+				<ul class="pagination justify-content-center">
+					<li
+						*ngFor="let page of availablePages"
+						class="page-item"
+						[class.active]="page === currentPage"
+					>
+						<a
+							[routerLink]="[]"
+							[queryParams]="{ page: page }"
+							class="page-link"
+							>{{ page }}</a
+						>
+					</li>
+				</ul>
+			</nav>
+
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th>Playlist Name</th>
+						<th>Tracks</th>
+						<th>Owner</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let playlist of playlists.items">
+						<td>
+							<a [routerLink]="['/playlists', playlist.id]">{{
+								playlist.name
+							}}</a>
+						</td>
+						<td>{{ playlist.tracks.total | number }}</td>
+						<td>{{ playlist.owner.display_name }}</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<nav class="">
+				<ul class="pagination justify-content-center">
+					<li
+						*ngFor="let page of availablePages"
+						class="page-item"
+						[class.active]="page === currentPage"
+					>
+						<a
+							[routerLink]="[]"
+							[queryParams]="{ page: page }"
+							class="page-link"
+							>{{ page }}</a
+						>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
